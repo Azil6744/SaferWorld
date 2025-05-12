@@ -8,8 +8,8 @@
         <div class="text-center">
             <!--<a href="index.html" class="logo"><i class="mdi mdi-assistant"></i>Zoter</a>-->
             <a href="index.html" class="logo">
-                <img src="{{ asset('assets/images/logo-lg.png') }}" alt="" class="logo-large">
-                {{-- <h4 class="waves-effect mr-2">Safer World</h4> --}}
+                {{-- <img src="{{ asset('assets/images/logo-lg.png') }}" alt="" class="logo-large"> --}}
+                <h4 class="waves-effect mr-2">Admin Panel</h4>
             </a>
         </div>
     </div>
