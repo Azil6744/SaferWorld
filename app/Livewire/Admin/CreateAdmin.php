@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
 
-class CreateUser extends Component
+class CreateAdmin extends Component
 {
     public $name, $email, $password, $password_confirmation, $role;
 
@@ -47,8 +47,7 @@ class CreateUser extends Component
         $this->reset('name', 'email', 'password', 'password_confirmation', 'role');
 
         $this->dispatch('snackbar', message: 'User added successfully!', type: 'success');
-        
-            return redirect()->route('admin.users');
+            return redirect()->route('admin.accounts');
     }
 
     public function render()

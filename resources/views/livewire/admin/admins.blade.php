@@ -20,7 +20,7 @@
         <div class="card-header">
             <div class="d-flex justify-content-between">
                     <h4 class="card-title m-10">Admin</h4>
-                    <a href="{{ route('admin.create.user') }}" class="btn btn-light waves-effect float-right">Create Admin</a>
+                    <a href="{{ route('admin.create.admin.account') }}" class="btn btn-light waves-effect float-right">Create Admin</a>
                     
             </div>
         </div>
@@ -35,23 +35,7 @@
                         <option value="100">100</option>
                     </select>
                 </div>
-                <div >
-                    <select class="form-control" wire:model.live="priceFilter">
-                        <option value="" selected>Max Price</option>
-                        <option value="10">Under $10</option>
-                        <option value="20">Under $20</option>
-                        <option value="50">Under $50</option>
-                        <option value="100">Under $100</option>
-                    </select>
-                </div>
                 <div style="margin-left: 10px;">
-                    <select class="form-control " wire:model.live="durationUnitFilter">
-                        <option value="" selected>Duration Unit</option>
-                        <option value="day">Day</option>
-                        <option value="week">Week</option>
-                        <option value="month">Month</option>
-                        <option value="year">Year</option>
-                    </select>
                 </div>
             </div>  
             <div class="d-flex justify-content-end mb-2">
@@ -73,7 +57,7 @@
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
-                        <td>${{ $user->email }}</td>
+                        <td>{{ $user->email }}</td>
                         <td>{{ $user->last_login}}</td>
                         <td>{{ $user->created_at->toFormattedDateString() }}</td>
                         <td>

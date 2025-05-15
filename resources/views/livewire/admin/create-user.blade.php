@@ -47,6 +47,16 @@
                                             id="example-text-input" wire:model='email'>
                                     </div>
                                 </div>
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Role</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" wire:model='role'>
+                                            <option selected>Select Role</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="user">User</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label for="example-price-input" class="col-sm-2 col-form-label">Password</label>
                                     <div class="col-sm-10">
