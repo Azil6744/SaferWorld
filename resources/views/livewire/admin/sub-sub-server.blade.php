@@ -15,7 +15,7 @@
 
     <div class="card mt-3">
         <div class="card-header">
-            <h4 class="card-title">Sub Servers</h4>
+            <h4 class="card-title">Sub Sub Servers</h4>
         </div>
         <div class="card-body">
             <div class="d-flex justify-content-between mb-2">
@@ -34,8 +34,8 @@
                     </select>
                 </div>
                 <div class="d-flex justify-content-end mb-2">
-                    <a href="{{ route('admin.create.sub-server', $server->id) }}"
-                        class="btn btn-light waves-effect">Create Server</a>
+                    <a href="{{ route('admin.create.sub.subserver', $subserver->id) }}"
+                        class="btn btn-light waves-effect">Create Sub Sub Server</a>
                 </div>
             </div>
             <table id="tech-companies-1" class="table table-striped">
@@ -43,37 +43,31 @@
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Status</th>
+                        <th>Linked VPS Server</th>
+                        <th>VPS Server Username</th>
+                        <th>VPS Server IP Address</th>
                         <th>Created At</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($subServers as $subServer)
+                    @forelse ($subSubServers as $subServer)
                         <tr>
                             <td>{{ $subServer->id }}</td>
                             <td>{{ $subServer->name }}</td>
-                            <td>
-                                <span
-                                    class="badge {{ $subServer->isActive() ? 'badge-light-success' : 'badge-light-danger' }}">
-                                    {{ $subServer->status === 1 ? 'Active' : 'Inactive' }}
-                                </span>
-                            </td>
+                            <td>{{ $subServer->vpsServer->name ?? 'N/A' }}</td>
+                            <td>{{ $subServer->vpsServer->username }}</td>
+                            <td>{{ $subServer->vpsServer->ip_address }}</td>
                             <td>{{ $subServer->created_at->toFormattedDateString() }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                     <a href="{{ route('admin.sub.subServers', $subServer->id) }}"
-                                        class="btn btn-light-success btn-rounded btn-icon me-1 d-inline-flex align-items-center">
-                                        <Iconify-icon icon="solar:server-square-broken" width="20"
-                                            height="20"></Iconify-icon>
-                                    </a>
-                                    <a href="{{ route('admin.edit.server', $server->id) }}"
+                                    <a href="{{ route('admin.edit.sub.subserver', ['subServer' => $subserver->id, 'subSubServer' => $subServer->id]) }}"
                                         class="btn btn-light-success btn-rounded btn-icon me-1 d-inline-flex align-items-center">
                                         <iconify-icon icon="lucide:edit" width="20" height="20"></iconify-icon>
                                     </a>
                                     <button
                                         class="btn btn-light-danger btn-rounded btn-icon d-inline-flex align-items-center"
-                                        wire:click="$js.confirmDelete({{ $server->id }})">
+                                        wire:click="$js.confirmDelete({{ $subServer->id }})">
                                         <iconify-icon icon="mingcute:delete-2-line" width="20"
                                             height="20"></iconify-icon>
                                     </button>
@@ -89,7 +83,7 @@
             </table>
         </div>
         <div class="mt-2">
-            {{ $subServers->links('components.pagination', data: ['scrollTo' => false]) }}
+            {{-- {{ $subServers->links('components.pagination', data: ['scrollTo' => false]) }} --}}
         </div>
     </div>
 </div>

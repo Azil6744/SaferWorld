@@ -16,6 +16,10 @@ class SubServer extends Model
     {
         return $this->belongsTo(VpsServer::class);
     }
+    public function subSubServers()
+    {
+        return $this->hasMany(SubSubServer::class);
+    }
     public function isActive()
     {
         return $this->status == 1;

@@ -11,17 +11,20 @@ use App\Livewire\Admin\CreatePlan;
 use App\Livewire\Admin\CreateServer;
 use App\Livewire\Admin\CreateServersAccounts;
 use App\Livewire\Admin\CreateSubServer;
+use App\Livewire\Admin\CreateSubSubServer;
 use App\Livewire\Admin\CreateUser;
 use App\Livewire\Admin\CreateVpsServers;
 use App\Livewire\Admin\EditNotification;
 use App\Livewire\Admin\EditPlan;
 use App\Livewire\Admin\EditServer;
+use App\Livewire\Admin\EditSubSubServer;
 use App\Livewire\Admin\EditUser;
 use App\Livewire\Admin\EditVpsServers;
 use App\Livewire\Admin\Feedbacks;
 use App\Livewire\Admin\MailConfig;
 use App\Livewire\Admin\Notifications;
 use App\Livewire\Admin\ServersAccounts;
+use App\Livewire\Admin\SubSubServer;
 use App\Livewire\Admin\TicketDetails;
 use App\Livewire\Admin\Tickets;
 use App\Livewire\Admin\Tos;
@@ -53,7 +56,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/create-servers-accounts', CreateServersAccounts::class)->name('admin.create.servers.accounts');
 
     Route::get('/subServers/{server}', AllSubServers::class)->name('admin.subServers');
+    Route::get('/sub-subServers/{server}', SubSubServer::class)->name('admin.sub.subServers');
     Route::get('/create-sub-server/{server}', CreateSubServer::class)->name('admin.create.sub-server');
+    Route::get('/create-sub-subserver/{subServer}', CreateSubSubServer::class)->name('admin.create.sub.subserver');
+    Route::get('/edit-sub-subserver/{subServer}/{subSubServer}', EditSubSubServer::class)->name('admin.edit.sub.subserver');
     
     Route::get('/transactions', Transactions::class)->name('admin.transactions');
     

@@ -18,10 +18,10 @@
         <div class="col-12 col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-1">Create Sub Server</h4>
+                    <h4 class="card-title mb-1">Update Sub Sub Server</h4>
                 </div>
                 <div class="card-body">
-                    <form wire:submit.prevent="store" class="row">
+                    <form wire:submit.prevent="update" class="row">
                         <div class="col-sm-12 mb-2">
                             <label for="name">Name</label>
                             <input type="text" class="form-control" id="name" wire:model.defer="name"
@@ -31,18 +31,23 @@
                             @enderror
                         </div>
                         <div class="col-sm-12 mb-2">
-                            <label for="Serverstatus" class="form-label">Status</label>
-                            <select class="form-control" id="Serverstatus" wire:model="status">
-                                <option value="" selected>Select status</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
+                            <label for="vps_server_id" class="form-label">Linked VPS Server</label>
+                            <select id="vps_server_id" class="form-control" wire:model.defer="vps_server">
+                                <option value="" selected>Select a VPS Server</option>
+                                @foreach ($vpsServers as $vpsServer)
+                                    <option value="{{ $vpsServer->id }}">
+                                        {{ $vpsServer->name ?? 'Unnamed VPS' }} ({{ $vpsServer->ip_address }}) -
+                                        {{ $vpsServer->status ? 'Active' : 'Inactive' }}
+                                    </option>
+                                @endforeach
                             </select>
-                            @error('status')
+                            @error('vps_server')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+
                         <div class="col-12 mb-2">
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>

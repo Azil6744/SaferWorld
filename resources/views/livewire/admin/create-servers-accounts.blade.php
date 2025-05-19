@@ -9,7 +9,8 @@
                         <div class="btn-group float-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.servers.accounts') }}">VPS Accounts</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.servers.accounts') }}">VPS
+                                        Accounts</a></li>
                                 <li class="breadcrumb-item active">Create VPS Account</li>
                             </ol>
                         </div>
@@ -66,7 +67,7 @@
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Password</label>
                                     <div class="col-sm-10">
                                         <input class="form-control" type="password" placeholder="Enter the Description"
-                                            id="password" wire:model='password'> 
+                                            id="password" wire:model='password'>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end mb-2">
@@ -84,25 +85,36 @@
 </div>
 @script
     <script>
+        // Listen for snackbar event and show snackbar
         $wire.on('snackbar', (event) => {
             showSnackbar(event.message, event.type);
         });
+
+        // Listen for redirect event and redirect after 1 second
         $wire.on('redirect', (event) => {
             setTimeout(() => {
                 window.location.href = event.url;
             }, 1000);
         });
+
+        // Enable/disable password field based on type selection
         $(document).on('change', '#type', function() {
-    var selectedValue = $(this).val();
+            var selectedValue = $(this).val();
+            if (selectedValue === 'wireguard') {
+                $('#password').attr('disabled', true);
+            } else {
+                $('#password').removeAttr('disabled');
+            }
+        });
 
-    if (selectedValue === 'wireguard') {
-        $('#password').attr('disabled', true);
-    } else {
-        $('#password').removeAttr('disabled');
-    }
-});
-
+        $wire.on("snackbar", (event) => {
+            Swal.fire({
+                title: "The VPS Account has been created",
+                text: "Created",
+                icon: "success"
+            });
+        });
+        
+    </script>
     </script>
 @endscript
-
-

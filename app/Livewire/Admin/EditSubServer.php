@@ -19,7 +19,6 @@ class EditSubServer extends Component
         return [
             'name' => 'required|string|max:255',
             'status' => 'required|boolean',
-            'vps_server' => 'required|exists:vps_servers,id',
         ];
     }
 
@@ -29,7 +28,6 @@ class EditSubServer extends Component
         $this->subServer = $subServer;
         $this->name = $subServer->name;
         $this->status = $subServer->status;
-        $this->vps_server = $subServer->vps_server_id;
     }
 
     public function store()
@@ -39,7 +37,6 @@ class EditSubServer extends Component
         $this->subServer->update([
             'name' => $this->name,
             'status' => $this->status,
-            'vps_server_id' => $this->vps_server,
         ]);
 
         return redirect()->intended(route('admin.subServers', $this->server))->with('message', 'Sub Server updated successfully.');
@@ -49,7 +46,7 @@ class EditSubServer extends Component
     {
         /** @disregard @phpstan-ignore-line */
         return view('livewire.admin.edit-sub-server', [
-            'vpsServers' => VpsServer::all('id', 'name', 'username', 'ip_address'),
+            'vpsServers' => VpsServer::all('id', 'name', 'username'),
         ])->extends('layouts.admin')
             ->section('content');
     }
