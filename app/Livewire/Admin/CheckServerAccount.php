@@ -3,47 +3,65 @@
 namespace App\Livewire\Admin;
 
 use App\Models\VpsAccounts;
-use App\Models\VpsServer;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class CheckServerAccount extends Component
 {
-    public $name, $vpsserverId, $type, $password;
-    public VpsServer $vpsserver;
-    public VpsAccounts $vpsAccount;
-    public $vpsAccountId;
-    public $vpsAccountName;
-    public $vpsAccountType;
-    public $vpsAccountPassword;
-    public $vpsAccountStatus;
-    public $vpsAccountIpAddress;
+    public string $config = '';
+    public string $error = '';
+    public ?VpsAccounts $vpsAccount;
 
-    public function getApiResponse($apiType, $params = [])
-    { 
-        $apiUrl = $this->vpsserver->ip_address . '/' . $apiType;
-        $response = Http::post($apiUrl, $params);
-        return json_decode($response->body(), true);
-    }
-    public function mount($vpsserverId)
+    public function mount(VpsAccounts $vpsAccount)
     {
-        $this->vpsserver = VpsServer::find($vpsserverId);
-        $this->vpsAccount = VpsAccounts::where('vpsserver_id', $this->vpsserver->id)->first();
-        $this->vpsAccountId = $this->vpsAccount->id;
-        $this->vpsAccountName = $this->vpsAccount->name;
-        $this->vpsAccountType = $this->vpsAccount->type;
-        $this->vpsAccountPassword = Hash::make($this->password);
-        $this->vpsAccountStatus = $this->getApiResponse('status');
-        $this->vpsAccountIpAddress = $this->getApiResponse('ip_address');
+        $this->vpsAccount = $vpsAccount;
+        $this->fetchConfig();
     }
-        
+
+    public function fetchConfig()
+    {
+        $type = $this->vpsAccount->type;
+        $name = $this->vpsAccount->name;
+        $ip = $this->vpsAccount->vpsserver->ip_address;
+        $apiToken = env('VPS_ACCOUNTS_API');
+
+        $url = match ($type) {
+            'open'      => "http://{$ip}:5000/api/openvpn/clients/{$name}/config",
+            'wireguard' => "http://{$ip}:5000/api/clients/{$name}",
+            default     => null,
+        };
+
+        if ($type === 'ikev2') {
+            $this->config = "Username: {$name}\nPassword: {$this->vpsAccount->password}\nServer IP: {$ip}";
+            return;
+        }
+
+        if (!$url) {
+            $this->error = 'Unknown VPN type.';
+            return;
+        }
+
+        try{
+            $response = Http::withHeaders([
+                'X-API-Token' => $apiToken,
+            ])->get($url);
+
+            if ($response->successful()) {
+                $this->config = $response->body(); // raw config text
+            } else {
+                $this->error = 'Failed to fetch config.';
+            }
+        } catch (\Exception $e) {
+            $this->config = 'Error: ' . $e->getMessage();
+            $this->error = 'An error occurred while fetching VPN configuration.';
+        }
+    }
+
     public function render()
     {
         /** @disregard @phpstan-ignore-line */
         return view('livewire.admin.check-server-account')
             ->extends('layouts.admin')
             ->section('content');
-            
     }
 }

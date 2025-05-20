@@ -55,7 +55,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Type</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="type" wire:model='type'>
+                                        <select class="form-control" id="type" wire:model.live='type'>
                                             <option value="" selected>Select type</option>
                                             <option value="open">Open Vpn</option>
                                             <option value="wireguard">Wire Guard</option>
@@ -63,13 +63,16 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="example-text-input" class="col-sm-2 col-form-label">Password</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="password" placeholder="Enter the Description"
-                                            id="password" wire:model='password'>
+                                @if ($type !== 'wireguard')
+                                    <div class="form-group row">
+                                        <label for="example-text-input" class="col-sm-2 col-form-label">Password</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="password"
+                                                placeholder="Enter the Description" id="password"
+                                                wire:model='password'>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                                 <div class="d-flex justify-content-end mb-2">
                                     <button type="submit" class="btn btn-light waves-effect">Create Vps Server</button>
                                 </div>
@@ -97,24 +100,13 @@
             }, 1000);
         });
 
-        // Enable/disable password field based on type selection
-        $(document).on('change', '#type', function() {
-            var selectedValue = $(this).val();
-            if (selectedValue === 'wireguard') {
-                $('#password').attr('disabled', true);
-            } else {
-                $('#password').removeAttr('disabled');
-            }
-        });
-
-        $wire.on("snackbar", (event) => {
+        $wire.on("sweetToast", (event) => {
             Swal.fire({
-                title: "The VPS Account has been created",
-                text: "Created",
-                icon: "success"
+                title: event.title,
+                text: event.message,
+                icon: event.type,
             });
         });
-        
     </script>
     </script>
 @endscript
