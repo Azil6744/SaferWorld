@@ -19,7 +19,7 @@
 		@include('partials.navbar')
 		<!--end header -->
 		<!--start page wrapper -->
-				
+					
 				<!--start page content -->
 				@yield('content')
 				<!--end page content -->
@@ -32,8 +32,9 @@
 		<div class="overlay toggle-icon"></div>
 		<!--end overlay-->
 		<!--End Back To Top Button-->
-		<footer class="footer">
-			© {{ date('Y') }} Zoter by Mannatthemes.
+		<footer class="footer d-flex justify-content-between">
+			<p class="mb-0"> © {{ date('Y') }} Copyright by Saferworld</p>
+			<p class="mb-0">Powered by <a href="https://www.tecclubx.com">TecClub</a></p>
 		</footer>
 	</div>
 	<!--end wrapper-->
