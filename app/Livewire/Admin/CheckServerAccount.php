@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class CheckServerAccount extends Component
 {
-    public string $config = '';
+    public $config;
     public string $error = '';
     public ?VpsAccounts $vpsAccount;
 
@@ -47,7 +47,11 @@ class CheckServerAccount extends Component
             ])->get($url);
 
             if ($response->successful()) {
-                $this->config = $response->body(); // raw config text
+                if ($type === 'open') {
+                    $this->config = $response->body(); // decoded data as array
+                } elseif ($type === 'wireguard') {
+                    $this->config = $response->json(); // decoded data as array
+                }
             } else {
                 $this->error = 'Failed to fetch config.';
             }
