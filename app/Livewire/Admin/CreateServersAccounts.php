@@ -132,7 +132,7 @@ class CreateServersAccounts extends Component
             'name' => $this->name,
             'vpsserver_id' => $this->vpsserverId,
             'type' => $this->type,
-            'password' => $this->password ? Hash::make($this->password) : null,
+            'password' => $this->password
         ]);
     }
 
