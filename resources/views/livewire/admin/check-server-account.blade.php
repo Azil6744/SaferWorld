@@ -16,9 +16,9 @@
             <h5><strong>IP:</strong> {{ $vpsAccount->vpsserver->ip_address }} </h5>
             <h5>Config Data:</h5>
                 @if ($vpsAccount->type === 'wireguard')
-                <p>{{ $config['config'] }}</p>
+                <pre>{{ $config['config'] }}</pre>
                 @else
-                <p>{{ $config }}</p>
+                <pre>{{ $config }}</pre>
                     
                 @endif
             <p></p>
