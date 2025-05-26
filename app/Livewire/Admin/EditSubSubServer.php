@@ -10,7 +10,7 @@ use App\Models\SubSubServer;
 class EditSubSubServer extends Component
 {
     public SubServer $subServer;
-    public SubSubServer $subSubServer;
+    public Subsubserver $subSubServer;
     public $name;
     public $vps_server;
 
@@ -22,7 +22,7 @@ class EditSubSubServer extends Component
         ];
     }
 
-    public function mount(SubServer $subServer, SubSubServer $subSubServer)
+    public function mount(SubServer $subServer, Subsubserver $subSubServer)
     {
         $this->subServer = $subServer;
         $this->subSubServer = $subSubServer;
