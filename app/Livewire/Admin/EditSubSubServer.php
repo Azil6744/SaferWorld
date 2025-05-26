@@ -5,7 +5,7 @@ namespace App\Livewire\Admin;
 use App\Models\SubServer;
 use App\Models\VpsServer;
 use Livewire\Component;
-use App\Models\SubSubServer;
+use App\Models\SubsubServer;
 
 class EditSubSubServer extends Component
 {
