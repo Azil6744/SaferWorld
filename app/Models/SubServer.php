@@ -18,7 +18,7 @@ class SubServer extends Model
     }
     public function subSubServers()
     {
-        return $this->hasMany(SubSubServer::class);
+        return $this->hasMany(Subsubserver::class);
     }
     public function isActive()
     {
