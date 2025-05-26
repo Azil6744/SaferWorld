@@ -44,7 +44,7 @@ class EditPlan extends Component
         ]);
 
         $this->dispatch('snackbar', message: 'Plan updated successfully!', type: 'success');
-        $this->dispatch('redirect', url: route('admin.edit.plan'));
+        $this->dispatch('redirect', url: route('admin.plans'));
     }
 
     public function render()
