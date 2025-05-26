@@ -62,12 +62,12 @@
                             <td>{{ $subServer->created_at->toFormattedDateString() }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                     <a href="{{ route('admin.sub.subServers', $subServer->id) }}"
+                                    <a href="{{ route('admin.sub.subServers', $subServer->id) }}"
                                         class="btn btn-light-success btn-rounded btn-icon me-1 d-inline-flex align-items-center">
                                         <Iconify-icon icon="solar:server-square-broken" width="20"
                                             height="20"></Iconify-icon>
                                     </a>
-                                    <a href="{{ route('admin.edit.server', $server->id) }}"
+                                    <a href="{{ route('admin.edit.sub-server', ['server' => $server, 'subServer' => $subServer]) }}"
                                         class="btn btn-light-success btn-rounded btn-icon me-1 d-inline-flex align-items-center">
                                         <iconify-icon icon="lucide:edit" width="20" height="20"></iconify-icon>
                                     </a>

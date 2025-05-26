@@ -39,7 +39,10 @@ class EditSubServer extends Component
             'status' => $this->status,
         ]);
 
-        return redirect()->intended(route('admin.subServers', $this->server))->with('message', 'Sub Server updated successfully.');
+
+        $this->dispatch('snackbar', message: 'Sub Server added successfully!', type: 'success');
+        // dd($this->server);
+        $this->dispatch('redirect', url: route('admin.subServers', ['server' => $this->server]));
     }
 
     public function render()

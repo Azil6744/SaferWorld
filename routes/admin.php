@@ -18,6 +18,7 @@ use App\Livewire\Admin\CreateVpsServers;
 use App\Livewire\Admin\EditNotification;
 use App\Livewire\Admin\EditPlan;
 use App\Livewire\Admin\EditServer;
+use App\Livewire\Admin\EditSubServer;
 use App\Livewire\Admin\EditSubSubServer;
 use App\Livewire\Admin\EditUser;
 use App\Livewire\Admin\EditVpsServers;
@@ -60,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/subServers/{server}', AllSubServers::class)->name('admin.subServers');
     Route::get('/sub-subServers/{server}', SubSubServer::class)->name('admin.sub.subServers');
     Route::get('/create-sub-server/{server}', CreateSubServer::class)->name('admin.create.sub-server');
+    Route::get('/edit-sub-server/{server}/{subServer}', EditSubServer::class)->name('admin.edit.sub-server');
     Route::get('/create-sub-subserver/{subServer}', CreateSubSubServer::class)->name('admin.create.sub.subserver');
     Route::get('/edit-sub-subserver/{subServer}/{subSubServer}', EditSubSubServer::class)->name('admin.edit.sub.subserver');
     

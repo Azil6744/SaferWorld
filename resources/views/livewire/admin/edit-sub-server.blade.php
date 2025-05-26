@@ -41,21 +41,6 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-sm-12 mb-2">
-                            <label for="vps_server_id" class="form-label">Linked VPS Server</label>
-                            <select id="vps_server_id" class="form-control" wire:model.defer="vps_server">
-                                <option value="" selected>Select a VPS Server</option>
-                                @foreach ($vpsServers as $vpsServer)
-                                    <option value="{{ $vpsServer->id }}">
-                                        {{ $vpsServer->name ?? 'Unnamed VPS' }} ({{ $vpsServer->ip_address }}) -
-                                        {{ $vpsServer->status ? 'Active' : 'Inactive' }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('vps_server')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
 
                         <div class="col-12 mb-2">
                             <button type="submit" class="btn btn-primary">Update</button>
@@ -66,3 +51,15 @@
         </div>
     </div>
 </div>
+@script
+    <script>
+        $wire.on('snackbar', (event) => {
+            showSnackbar(event.message, event.type);
+        });
+        $wire.on('redirect', (event) => {
+            setTimeout(() => {
+                window.location.href = event.url;
+            }, 1000);
+        });
+    </script>
+@endscript
