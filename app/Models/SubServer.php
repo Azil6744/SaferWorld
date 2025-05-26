@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubServer extends Model
 {
-    protected $fillable = ['server_id', 'vps_server_id', 'name', 'status'];
+    protected $fillable = ['server_id','name', 'status'];
 
     public function server()
     {
