@@ -140,19 +140,23 @@
     </div>
 </div>
 @script
-    <script>
-        $js('confirmDelete', (id) => {
+  <script>
+        $js('updateStatus', (id, status) => {
+            let actionText = status === 'open' ? 'Reopen' : (status === 'pending' ? 'mark as pending' : 'close');
+            let actionBtnText = status === 'open' ? 'Yes, Reopen it!' : (status === 'pending' ?
+                'Yes, Mark as Pending!' : 'Yes, Close it!');
+
             Swal.fire({
-                title: 'Are you sure?',
+                title: `Are you sure you want to ${actionText} this Ticket?`,
                 text: 'You won\'t be able to revert this!',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: actionBtnText
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $wire.deletePlan(id);
+                    $wire.updateStatus(id, status);
                 }
             });
         });
