@@ -81,6 +81,14 @@ class UserController extends Controller
                 'message' => 'Current password is incorrect'
             ], 400);
         }
+
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+        return response()->json([
+            'status' => true,
+            'message' => 'Password updated successfully',
+        ], 200);
     }
     public function deleteAccount()
     {
