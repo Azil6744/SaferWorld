@@ -7,8 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password as RulesPassword;
 
 class UserController extends Controller
 {
@@ -57,7 +57,7 @@ class UserController extends Controller
             'old_password' => 'required|string',
             'new_password' => [
                 'required',
-                Password::min(8)
+                RulesPassword::min(8)
                     ->letters()
                     ->mixedCase()
                     ->numbers()
