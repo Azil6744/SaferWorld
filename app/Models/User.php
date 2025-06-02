@@ -4,7 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Purchase;
-use App\Notifications\CustomEmailVerifyNotification;
+use App\Notifications\EmailVerifyNotification;
+use App\Notifications\VerifyEmailNotification;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -63,10 +65,14 @@ class User extends Authenticatable implements MustVerifyEmail
             ->saveSlugsTo('slug');
     }
 
-    // public function sendEmailVerificationNotification()
-    // {
-    //     $this->notify(new CustomEmailVerifyNotification);
-    // }
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new EmailVerifyNotification);
+    }
+      public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
     public function purchases()
     {
         return $this->hasMany(Purchase::class);

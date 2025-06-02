@@ -42,7 +42,7 @@ class CreateUser extends Component
             'email' => $this->email,
             'role' => $this->role,
             'password' => Hash::make($this->password),
-            'email_verified_at' => now(),
+            // 'email_verified_at' => now(),
         ]);
         $this->reset('name', 'email', 'password', 'password_confirmation', 'role');
 
