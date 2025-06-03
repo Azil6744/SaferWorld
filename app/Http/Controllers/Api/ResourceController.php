@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Plan;
+use App\Models\Option;
 use App\Models\Server;
 use App\Models\VpsServer;
+use App\Models\UserFeedback;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use App\Http\Resources\ServerResource;
 use App\Http\Resources\VpsServerResource;
-use App\Models\UserFeedback;
 use Illuminate\Support\Facades\Validator;
 
 class ResourceController extends Controller
@@ -35,6 +36,7 @@ class ResourceController extends Controller
             'servers' => ServerResource::collection($servers),
         ]);
     }
+    
 
     public function vpsServers()
     {
@@ -56,7 +58,22 @@ class ResourceController extends Controller
         ]);
     }
 
-     public function addFeedback(Request $request)
+    public function options()
+    {
+        $options = [
+            'tos' => Option::where('key', 'tos')->first()->value ?? '',
+            'privacy_policy' => Option::where('key', 'privacy_policy')->first()->value ?? '',
+            'about_us' => Option::where('key', 'about_us')->first()->value ?? '',
+        ];
+
+        return response()->json([
+            'tos' => $options['tos'],
+            'privacy_policy' => $options['privacy_policy'],
+            'about_us' => $options['about_us'],
+        ]);
+    }
+
+    public function addFeedback(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'subject' => 'required|string|max:255',
@@ -94,7 +111,7 @@ class ResourceController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'error' => $validator->errors()->all()
-            ], 400);
+            ], 422);
         }
 
         $platform = $request->platform;
@@ -102,7 +119,7 @@ class ResourceController extends Controller
         $locationData = Http::get("http://ip-api.com/json/{$ip}")->json();
 
         if (!isset($locationData['lat']) || !isset($locationData['lon'])) {
-            return response()->json(['error' => 'Could not determine location'], 400);
+            return response()->json(['error' => 'Could not determine location'], 422);
         }
 
         $userLat = $locationData['lat'];
@@ -141,7 +158,6 @@ class ResourceController extends Controller
             'server' => $closestPremiumServer,
         ]);
     }
-
     private function haversineDistance($lat1, $lon1, $lat2, $lon2)
     {
         $earthRadius = 6371; // Earth's radius in KM

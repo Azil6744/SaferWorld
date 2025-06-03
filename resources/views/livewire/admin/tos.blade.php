@@ -57,40 +57,39 @@
 
     </div>
 </div>
+@assets
+    <script src="https://cdn.tiny.cloud/1/profov2dlbtwaoggjfvbncp77rnjhgyfnl3c2hx3kzpmhif1/tinymce/7/tinymce.min.js"
+        referrerpolicy="origin"></script>
+@endassets
 @script
-<script>
-    tinymce.init({
-        selector: 'textarea.tinymce-editor',
-        skin: 'oxide',
-        plugins: 'code table lists',
-        toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table',
-        setup: function(editor) {
-            editor.on('blur', function() {
-                let content = editor.getContent();
-                let livewireField = editor.getElement().getAttribute('wire:model');
-                @this.set(livewireField, content);
-            });
-            editor.on('change', function() {
-                let content = editor.getContent();
-                let livewireField = editor.getElement().getAttribute('wire:model');
-                @this.set(livewireField, content);
-            });
-        },
-    });
-
-    $wire.on('sweetAlert', (event) => {
-        Swal.fire({
-            title: event.title,
-            text: event.message,
-            icon: event.type,
-            timer: 2000,
-            showConfirmButton: false
+    <script>
+        tinymce.init({
+            selector: 'textarea.tinymce-editor', // Replace this CSS selector to match the placeholder element for TinyMCE
+            plugins: 'code table lists',
+            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table',
+            setup: function(editor) {
+                editor.on('blur', function() {
+                    let content = editor.getContent();
+                    let livewireField = editor.getElement().getAttribute('wire:model');
+                    @this.set(livewireField, content);
+                });
+                editor.on('change', function() {
+                    let content = editor.getContent();
+                    let livewireField = editor.getElement().getAttribute('wire:model');
+                    @this.set(livewireField, content);
+                });
+            },
         });
-    });
-</script>
+
+        $wire.on('sweetAlert', (event) => {
+            Swal.fire({
+                title: event.title,
+                text: event.message,
+                icon: event.type,
+                timer: 2000,
+                showConfirmButton: false
+            });
+        });
+    </script>
 @endscript
-@section('scripts')
-<script src="https://cdn.tiny.cloud/1/profov2dlbtwaoggjfvbncp77rnjhgyfnl3c2hx3kzpmhif1/tinymce/7/tinymce.min.js"
-    referrerpolicy="origin"></script>
-@endsection
 

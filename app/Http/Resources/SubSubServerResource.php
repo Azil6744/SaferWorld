@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubServerResource extends JsonResource
+class SubSubServerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,9 @@ class SubServerResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'server_id' => $this->server_id,
+            'sub_server_id' => $this->sub_server_id,
+            'vps_server_id' => $this->vps_server_id,
             'name' => $this->name,
-            'status' => $this->status,
-            'sub_sub_servers' => $this->whenLoaded('subSubServers', fn() => SubSubServerResource::collection($this->subSubServers)),
         ];
     }
 }

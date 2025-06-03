@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AccountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BillingAddressController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PurchaseController;
 use App\Http\Controllers\Api\ResourceController;
@@ -50,7 +51,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/ticket/{ticketId}/close', [TicketController::class, 'close'])->name('api.tickets.close');
     Route::post('/tickets/{ticketId}/priority', [TicketController::class, 'priority'])->name('api.tickets.priority');
     Route::delete('/ticket/{ticketId}/delete', [TicketController::class, 'destroy'])->name('api.tickets.delete');
+    Route::get('/billing-address', [BillingAddressController::class, 'show'])->name('api.billing.address.show');
+    Route::post('/billing-address/store', [BillingAddressController::class, 'store'])->name('api.billing.address.store');
+    Route::delete('/billing-address/delete', [BillingAddressController::class, 'destroy'])->name('api.billing.address.delete');
 });
 Route::get('/vps-servers', [ResourceController::class, 'vpsServers']);
 
 Route::get('/plans', [ResourceController::class, 'plans']);
+Route::get('/options', [ResourceController::class, 'options']);
