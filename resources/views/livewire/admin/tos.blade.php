@@ -32,13 +32,13 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="form-group row">
+                                <div class="form-group row" wire:ignore>
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Privacy Policy</label>
                                     <div class="col-sm-10">
                                         <textarea name="privacy_policy" id="myeditorinstance" wire:model="privacy_policy" class="form-control tinymce-editor"></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div class="form-group row" wire:ignore>
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Terms And Conditions</label>
                                     <div class="col-sm-10">
                                         <textarea id="tosEditor" name="tos" wire:model="tos" class="form-control tinymce-editor"></textarea>
