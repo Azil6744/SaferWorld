@@ -45,7 +45,7 @@
                                 <tr>
                                     <th class="text-primary-light">Email Verified:</th>
                                     <td>
-                                        {{-- {{ $user->hasVerifiedEmail() ? $user->email_verified_at->toDayDateTimeString() : 'No' }} --}}
+                                        {{ $user->hasVerifiedEmail() ? $user->email_verified_at->toDayDateTimeString() : 'No' }}
                                     </td>
                                 </tr>
                                 @if ($user->isBanned())
@@ -63,7 +63,7 @@
                                 <tr>
                                     <th class="text-primary-light">Registered:</th>
                                     <td>
-                                        {{-- {{ $user->created_at->toDayDateTimeString() }} --}}
+                                        {{ $user->created_at->toDayDateTimeString() }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -112,7 +112,7 @@
                 </div>
             </div>
         </div>
-        {{-- @if ($user->role == 'user') --}}
+        @if ($user->role == 'user')
             <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <div class="card">
                     <div class="card-header">
@@ -129,7 +129,7 @@
                                 <li class="d-flex align-items-center gap-1 mb-12">
                                     <p class="w-30 text-md fw-semibold text-primary-light"> Expires At </p>
                                     <p class="w-70 text-secondary-light fw-normal">:
-                                        {{-- {{ $user->activePlan->end_date->toDayDateTimeString() }} </p> --}}
+                                        {{ $user->activePlan->end_date->toDayDateTimeString() }} </p>
                                 </li>
                                 <button class="btn btn-outline-info mb-2 _effect--ripple waves-effect waves-light"
                                     wire:click="$js.confirmCancelPlan()">
@@ -144,7 +144,7 @@
                         </ul>
                         <h6>Add or Extend Plan</h6>
                         @if ($errors->any())
-                            {{-- <x-alert type="warning" message="{{ $errors->first() }}" /> --}}
+                            <x-alert type="warning" message="{{ $errors->first() }}" />
                         @endif
                         <div class="form-group mb-3">
                             <select class="form-control w-100" id="exampleFormControlSelect1" wire:model="selectedPlan">
@@ -179,10 +179,10 @@
                                 <div class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="me-auto">
                                         <div class="fw-bold title">{{ $purchase->plan->name }}</div>
-                                        {{-- <p class="sub-title mb-0">({{ $purchase->start_date->toFormattedDateString() }} --}}
+                                        <p class="sub-title mb-0">({{ $purchase->start_date->toFormattedDateString() }} 
                                             -
-                                            {{-- {{ $purchase->end_date->toFormattedDateString() }})
-                                            - {{ Str::title($purchase->status) }}</p> --}}
+                                         {{ $purchase->end_date->toFormattedDateString() }})
+                                            - {{ Str::title($purchase->status) }}</p>
                                     </div>
                                     <span
                                         class="pay-pricing align-self-center me-3">${{ $purchase->amount_paid }}</span>
@@ -196,7 +196,7 @@
                     </div>
                 </div>
             </div>
-        {{-- @endif --}}
+        @endif
     </div>
 </div>
 @script
