@@ -12,12 +12,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use App\Http\Resources\ServerResource;
 use App\Http\Resources\VpsServerResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ResourceController extends Controller
 {
     public function servers(Request $request)
     {
+        $user = Auth::user();
+
+        // Validate platform first
         $validator = Validator::make($request->all(), [
             'platform' => 'required|string|in:android,ios,macos,windows',
         ]);
@@ -29,7 +33,20 @@ class ResourceController extends Controller
             ], 400);
         }
 
-        $servers = Server::where($request->platform, true)->with(['subServers.subSubServers'])->get();
+        // If admin, show all servers
+        if ($user->role === 'admin') {
+            $servers = Server::where('status', true)
+                ->where($request->platform, true)
+                ->with(['subServers.subSubServers'])
+                ->get();
+        } else {
+            // Get servers where server type matches user role
+            $servers = Server::where('type', $user->role)
+                ->where('status', true)
+                ->where($request->platform, true)
+                ->with(['subServers.subSubServers'])
+                ->get();
+        }
 
         return response()->json([
             'status' => true,

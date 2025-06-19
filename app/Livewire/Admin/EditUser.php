@@ -15,7 +15,7 @@ class EditUser extends Component
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $this->user->id,
-            'role' => 'required|in:admin,user',
+            'role' => 'required|in:admin,company,normal',
         ];
     }
 

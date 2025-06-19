@@ -16,7 +16,7 @@ class CreateUser extends Component
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'role' => 'required|in:admin,user',
+            'role' => 'required|in:admin,company,normal',
             'password' => [
                 'required',
                 'confirmed',
@@ -31,7 +31,7 @@ class CreateUser extends Component
 
     public function mount()
     {
-        $this->role = request()->routeIs('admin.add') ? 'admin' : 'user'; // Default to 'user' if not admin add page
+        $this->role = request()->routeIs('admin.add') ? 'admin' : 'normal'; // Default to 'user' if not admin add page
     }
 
     public function store()

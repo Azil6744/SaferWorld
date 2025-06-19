@@ -52,8 +52,8 @@
                                     <div class="col-sm-10">
                                         <select class="form-control" wire:model='role'>
                                             <option selected>Select Role</option>
-                                            <option value="admin">Admin</option>
-                                            <option value="user">User</option>
+                                            <option value="company">Campany</option>
+                                            <option value="normal">Normal</option>
                                         </select>
                                     </div>
                                 </div>
