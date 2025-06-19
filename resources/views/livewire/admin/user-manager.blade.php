@@ -108,7 +108,6 @@
                         <i class="bx bx-trash me-1"></i>
                         Delete User
                     </button>
-
                 </div>
             </div>
         </div>
