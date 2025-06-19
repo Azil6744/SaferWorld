@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             // $table->dropColumn('role');
-             $table->enum('role', ['company','normal', 'admin'])->default('normal');
+            $table->enum('role', ['company', 'normal', 'admin'])->default('normal')->change();
         });
     }
 
@@ -23,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['company','normal', 'admin'])->default('normal')->change();
+             $table->enum('role', ['normal'])->default('normal')->change();
         });
     }
 };
