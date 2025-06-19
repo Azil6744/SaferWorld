@@ -32,7 +32,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'user',
+            'role' => 'normal',
         ]);
 
         // SendEmailVerification::dispatch($user)->delay(now()->addSeconds(5));
