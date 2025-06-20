@@ -53,7 +53,7 @@ class ResourceController extends Controller
             'servers' => ServerResource::collection($servers),
         ]);
     }
-    
+
 
     public function vpsServers()
     {
@@ -67,7 +67,8 @@ class ResourceController extends Controller
 
     public function plans()
     {
-        $plans = Plan::all();
+        $plans = Plan::where('id', '!=', 1) // Exclude the free plan
+            ->get();
 
         return response()->json([
             'status' => true,
