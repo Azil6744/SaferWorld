@@ -47,7 +47,6 @@ class AccountController extends Controller
         }
 
         SendEmailVerification::dispatch($user)->delay(now()->addSeconds(5));
-        // $user->sendEmailVerificationNotification();
 
         return response()->json([
             'status' => true,
@@ -82,6 +81,7 @@ class AccountController extends Controller
 
         $user->markEmailAsVerified();
         event(new Verified($user));
+        $user->giveTrialIfEligible();
 
         return response()->json([
             'status' => true,

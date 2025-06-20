@@ -2,23 +2,20 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Purchase;
+use App\Traits\HasTrial;
+use Spatie\Sluggable\HasSlug;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Sluggable\SlugOptions;
+use Illuminate\Notifications\Notifiable;
 use App\Notifications\EmailVerifyNotification;
-use App\Notifications\VerifyEmailNotification;
-use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasSlug, HasApiTokens;
+    use HasFactory, Notifiable, HasSlug, HasApiTokens, HasTrial;
 
     /**
      * The attributes that are mass assignable.
@@ -32,6 +29,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'role',
         'email_verified_at',
         'last_login',
+        'has_had_trial',
+        'apple_id',
+        'banned_at',
+        'google_id',
+        'ban_reason',
+        'slug',
+        'registration_date',
     ];
 
     /**
@@ -55,6 +59,12 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'last_login' => 'datetime',
+            'registration_date' => 'datetime',
+            'banned_at' => 'datetime',
+            'has_had_trial' => 'boolean',
+            'apple_id' => 'string',
+            'google_id' => 'string',
+            'ban_reason' => 'string',
         ];
     }
 
