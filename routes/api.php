@@ -14,7 +14,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 
     Route::post('/email/resend-verification', [AccountController::class, 'resendEmail'])->name('api.verify.resend');
-    Route::get('/email/verify/{id}/{hash}', [AccountController::class, 'verifyEmail'])->name('verification.verify');
+    // Route::get('/email/verify/{id}/{hash}', [AccountController::class, 'verifyEmail'])->name('verification.verify');
 
     Route::post('/forgot-password', [AccountController::class, 'sendResetLink'])->name('api.password.reset');
 });
