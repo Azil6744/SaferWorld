@@ -1,6 +1,6 @@
-# 🛡️ SafeSurf VPN Admin Panel
+# 🛡️ SaferWorld VPN Admin Panel
 
-**SafeSurf Panel** is a robust admin dashboard tailored for managing VPN infrastructures with ease and security. Built for efficiency, it includes end-to-end control of VPS servers, VPN deployments, user accounts, subscription plans, ticketing, user feedback, SMTP configurations, and legal content like Terms of Service and Privacy Policy.
+**SaferWorld Panel** is a robust admin dashboard tailored for managing VPN infrastructures with ease and security. Built for efficiency, it includes end-to-end control of VPS servers, VPN deployments, user accounts, subscription plans, ticketing, user feedback, SMTP configurations, and legal content like Terms of Service and Privacy Policy.
 
 ---
 

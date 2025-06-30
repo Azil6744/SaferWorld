@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'email_verified_at' => fake()->boolean(70) ? now() : null, // 70% chance to have a verified email
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'role' => 'user',
+            'role' => 'normal',
             'last_login' => fake()->optional()->dateTimeBetween('-1 year', 'now'), // Random time or null
         ];
     }
@@ -71,7 +71,7 @@ class UserFactory extends Factory
                 'name' => 'user',
                 'email' => 'user@gmail.com',
                 'password' => Hash::make('user12345'),
-                'role' => 'user',
+                'role' => 'normal',
             ];
         });
     }

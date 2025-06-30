@@ -5,9 +5,10 @@
     @include('partials.head')
 </head>
 
-@yield('content')
+<body>
+    @yield('content')
 
-@include('partials.scripts')
+    @include('partials.scripts')
 </body>
 
 </html>

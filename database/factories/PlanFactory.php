@@ -25,4 +25,23 @@ class PlanFactory extends Factory
             'duration_unit' => $this->faker->randomElement(['day', 'week', 'month', 'year']),
         ];
     }
+
+    /**
+     * Indicate that the plan is free.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function trial(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'name' => 'Free Trial',
+                'slug' => 'free-trial',
+                'description' => 'A free trial plan with limited features.',
+                'price' => 0.00,
+                'duration' => 3, // Default trial period of 3 days
+                'duration_unit' => 'day',
+            ];
+        });
+    }
 }

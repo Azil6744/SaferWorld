@@ -41,6 +41,9 @@ class ResetPasswordNotification extends Notification
      */
     protected function resetUrl($notifiable)
     {
-        return config('app.frontend') . '/reset-password?token=' . $this->token . '&email=' . urlencode(encrypt($notifiable->getEmailForPasswordReset()));
+        return route('password.reset', [
+            'token' => $this->token,
+            'email' => encrypt($notifiable->getEmailForPasswordReset()),
+        ]);
     }
 }
