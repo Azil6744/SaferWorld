@@ -111,7 +111,7 @@
                 </div>
             </div>
         </div>
-        @if ($user->role == 'user')
+        @if ($user->role == 'normal')
             <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <div class="card">
                     <div class="card-header">
