@@ -54,7 +54,7 @@ class UserManager extends Component
 
         $this->selectedPlan = null;
 
-        $this->user->refresh();
+        $this->user->refresh()->load(['purchases.plan', 'activePlan.plan']);
 
         $this->dispatch('sweetAlert', title: 'Success', message: $message, type: 'success');
     }
@@ -69,20 +69,20 @@ class UserManager extends Component
         }
         $this->dispatch('sweetAlert', title: 'Success', message: $message, type: 'success');
 
-        $this->user->refresh();
+        $this->user->refresh()->load(['purchases.plan', 'activePlan.plan']);
     }
 
     public function verifyEmailManually()
     {
         $this->user->update(['email_verified_at' => now()]);
         $this->dispatch('sweetAlert', title: 'Success', message: 'Email verified manually.', type: 'success');
-        $this->user->refresh();
+        $this->user->refresh()->load(['purchases.plan', 'activePlan.plan']);
     }
 
     public function resendVerificationEmail()
     {
         if (!$this->user->hasVerifiedEmail()) {
-            // SendEmailVerification::dispatch($this->user)->delay(now()->addSeconds(5));
+            SendEmailVerification::dispatch($this->user)->delay(now()->addSeconds(5));
             $this->dispatch('sweetAlert', title: 'Success', message: 'Verification email resent.', type: 'success');
         } else {
             $this->dispatch('sweetAlert', title: 'Info', message: 'Email is already verified.', type: 'info');
@@ -101,7 +101,7 @@ class UserManager extends Component
             $this->user->tokens()->delete();
             $this->dispatch('sweetAlert', title: 'Success', message: 'User banned successfully.', type: 'success');
         }
-        $this->user->refresh();
+        $this->user->refresh()->load(['purchases.plan', 'activePlan.plan']);
     }
 
     public function unbanUser()
@@ -110,7 +110,7 @@ class UserManager extends Component
             $this->user->update(['banned_at' => null, 'ban_reason' => null]);
             $this->dispatch('sweetAlert', title: 'Success', message: 'User unbanned successfully.', type: 'success');
         }
-        $this->user->refresh();
+        $this->user->refresh()->load(['purchases.plan', 'activePlan.plan']);
     }
 
     public function deleteUser()
