@@ -74,7 +74,12 @@ class UserManager extends Component
 
     public function verifyEmailManually()
     {
-        $this->user->update(['email_verified_at' => now()]);
+        if ($this->user->hasVerifiedEmail()) {
+            $this->dispatch('sweetAlert', title: 'Info', message: 'Email is already verified.', type: 'info');
+            return;
+        }
+        $this->user->giveTrialIfEligible();
+        $this->user->markEmailAsVerified();
         $this->dispatch('sweetAlert', title: 'Success', message: 'Email verified manually.', type: 'success');
         $this->user->refresh()->load(['purchases.plan', 'activePlan.plan']);
     }
