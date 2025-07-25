@@ -47,5 +47,8 @@ return [
         'redirect' => env('APPLE_REDIRECT_URI'),
     ],
 
+    'script_runner' => [
+        'url' => env('SCRIPT_BASE_URL', 'https://scripts.tecclubb.com'),
+    ],
 
 ];

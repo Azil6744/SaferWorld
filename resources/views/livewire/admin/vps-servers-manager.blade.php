@@ -137,7 +137,9 @@
     </div>
     <div class="card">
         <div class="card-header">
-            <div class="card-title"><h3>Connected Users</h3></div>
+            <div class="card-title">
+                <h3>Connected Users</h3>
+            </div>
         </div>
         <div class="card-body">
             <div class="d-flex justify-content-between mb-3">
@@ -180,7 +182,8 @@
                             <td>
                                 <a href=""
                                     class="btn btn-light-info btn-rounded btn-icon me-1 d-inline-flex align-items-center">
-                                    <iconify-icon icon="ic:round-manage-accounts" width="20" height="20"></iconify-icon>
+                                    <iconify-icon icon="ic:round-manage-accounts" width="20"
+                                        height="20"></iconify-icon>
                                 </a>
                             </td>
                         </tr>
@@ -218,13 +221,21 @@
     </div>
 
     <div class="row mb-3">
-        <div class="col-md-12">
-            <div class="card bg-dark text-white terminal">
-                <div class="card-header">
-                    Script Output
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-end">
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h3 class="card-title mb-0">Server Actions</h3>
                 </div>
-                <pre id="script-output" class="terminal-output text-white text-left px-3 py-2" wire:stream="output"
-                    style="white-space: pre-wrap; overflow-wrap: break-word; word-wrap">{{ $output }}</pre>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3 flex-wrap row-gap-3">
+                        <button type="button" wire:click="getScriptUrl('ovpn_ikev2_wg.sh')"
+                            class="btn btn-outline-primary d-flex align-items-center justify-content-center gap-2">
+                            <iconify-icon icon="material-symbols-light:terminal-rounded" width="24"
+                                height="24"></iconify-icon>
+                            Run IKEv2 + WireGuard
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -232,11 +243,6 @@
 </div>
 @script
     <script>
-        // $(document).ready(function () {
-        //           if (!$.browser.webkit) {
-        //               $('.wrapper').html('<p>Sorry! Non webkit users. :(</p>');
-        //           }
-        //       });
         function extractNumber(value) {
             return parseFloat(value.replace(/[^\d.]/g, '')) || 0;
         }
@@ -311,7 +317,6 @@
             return chart;
         }
 
-
         var cpuChart = createGaugeChart("#cpu-chart", 0, "CPU Usage");
         var ramChart = createGaugeChart("#ram-chart", 0, "RAM Usage");
         var diskChart = createGaugeChart("#disk-chart", 0, "Disk Usage");
@@ -343,6 +348,10 @@
                 position: 'bottom-end',
                 showConfirmButton: false
             });
+        });
+
+        $wire.on('open-script-url', (event) => {
+            window.open(event.url, '_blank');
         });
     </script>
 @endscript
